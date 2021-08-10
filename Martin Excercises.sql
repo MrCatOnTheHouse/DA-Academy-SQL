@@ -8,7 +8,7 @@ FROM employees AS e;
 
 #3- Write a query to get all employee details from the employee table order by first name, descending. 
 SELECT * FROM employees AS e
-ORDER BY e.FIRST_NAME;
+ORDER BY e.FIRST_NAME DESC;
 
 #4- Write a query to get the names (first_name, last_name), salary, PF of all the employees (PF is calculated as 15% of salary). 
 SELECT CONCAT(e.FIRST_NAME,' ',e.LAST_NAME), e.SALARY, ROUND(e.SALARY * .15,2) AS PF
@@ -32,15 +32,15 @@ SELECT COUNT(e.EMPLOYEE_ID) AS NUMBER_EMPLOYEES, ROUND(AVG(e.SALARY),2) AS AVERA
 FROM employees AS e;
 
 #9- Write a query to get the number of employees working with the company. 
-SELECT COUNT(e.EMPLOYEE_ID) AS NUMBER_EMPLOYEES
+SELECT COUNT(DISTINCT e.EMPLOYEE_ID) AS NUMBER_EMPLOYEES
 FROM employees AS e;
 
 #10- Write a query to get the number of jobs available in the employees table. 
-SELECT DISTINCT(e.JOB_ID)
+SELECT COUNT(DISTINCT e.JOB_ID) AS AVAILABLE_JOBS
 FROM employees AS e
 
 #11- Write a query get all first name from employees table in upper case. 
-SELECT e.EMPLOYEE_ID,(e.FIRST_NAME) EMPLOYEE_NAME
+SELECT e.EMPLOYEE_ID,UPPER(e.FIRST_NAME) EMPLOYEE_NAME
 FROM employees AS e
 
 #12- Write a query to get the first 3 characters of first name from employees table. 
@@ -59,7 +59,7 @@ SELECT LTRIM(RTRIM(e.FIRST_NAME))
 FROM employees AS e;
 
 #16- Write a query to get the length of the employee names (first_name, last_name) from employees table. 
-SELECT LENGTH(CONCAT(e.FIRST_NAME,' ',e.LAST_NAME)) AS LENGTH_OF_NAMES
+SELECT LENGTH(CONCAT(e.FIRST_NAME,' ',e.LAST_NAME)) - 1 AS LENGTH_OF_NAMES
 FROM employees AS e;
 
 #17- Write a query to check if the first_name fields of the employees table contains numbers. 
@@ -68,10 +68,13 @@ FROM employees AS e
 WHERE e.FIRST_NAME LIKE '%[0-9]%';
 
 #18- Write a query to select first 10 records from a table. 
-SELECT CONCAT(e.FIRST_NAME,' ',e.LAST_NAME) AS EMPLOYEES_NAME
-FROM employees AS e LIMIT 10;
+SELECT *
+FROM employees AS e 
+ORDER BY e.employee_id
+LIMIT 10;
 
 #19- Write a query to get monthly salary (round 2 decimal places) of each and every employee.  
 #Note : Assume the salary field provides the 'annual salary' information.
 SELECT CONCAT(e.FIRST_NAME,' ',e.LAST_NAME) AS EMPLOYEES_NAME, ROUND(e.SALARY/12,2)
 FROM employees AS e;
+
