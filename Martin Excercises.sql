@@ -74,4 +74,4 @@ FROM employees AS e LIMIT 10;
 #19- Write a query to get monthly salary (round 2 decimal places) of each and every employee.  
 #Note : Assume the salary field provides the 'annual salary' information.
 SELECT CONCAT(e.FIRST_NAME,' ',e.LAST_NAME) AS EMPLOYEES_NAME, ROUND(e.SALARY/12,2)
-FROM employees AS e
+FROM employees AS e;
