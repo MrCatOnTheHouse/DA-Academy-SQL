@@ -153,3 +153,59 @@ RANK() OVER (PARTITION BY ORDERID ORDER BY quantity ) AS rnk,
 DENSE_RANK() OVER (PARTITION BY ORDERID ORDER BY quantity ) AS DENSE_RANK
 FROM order_details;
 
+
+SELECT * FROM departments
+SELECT e.first_name, department_ID FROM employees  AS e WHERE department_ID = 120
+
+SELECT CONCAT( s.firstName , ' ', s.lastName) AS Full_name
+FROM students AS s
+WHERE s.studentId IN (SELECT g.STUDENT_ID FROM grades AS g WHERE g.CLASS_NAME = 'SQL')
+
+SELECT CONCAT( s.firstName , ' ', s.lastName) AS Full_name
+FROM students AS s
+JOIN grades AS g ON g.STUDENT_ID = s.studentId
+WHERE g.CLASS_NAME = 'SQL'
+
+SELECT * from students
+INSERT INTO students 
+VALUES (7, 'Shirley', 'Lopez', 'Oaxaca', '22', 'F', 'Python')
+INSERT INTO grades 
+VALUES ('Python', 7, 10)
+SELECT * FROM grades 
+INSERT INTO grades 
+VALUES ('Python', 7, 10)
+
+INSERT INTO lab.grades VALUES ('Python', 1, 10);
+INSERT INTO lab.grades VALUES ('Python', 2, 9);
+INSERT INTO lab.grades VALUES ('Python', 3, 7);
+INSERT INTO lab.grades VALUES ('Python', 4, 9);
+
+
+SELECT CONCAT( s.firstName , ' ', s.lastName) AS Full_name, g.CLASS_NAME
+FROM students AS s
+JOIN grades AS g ON g.STUDENT_ID = s.studentId
+WHERE g.CLASS_NAME = 'SQL'
+
+
+SELECT CONCAT( s.firstName , ' ', s.lastName) AS Full_name
+FROM students AS s
+LEFT JOIN (SELECT * FROM grades WHERE CLASS_NAME = 'SQL') AS gr ON gr.student_id = s.studentId
+WHERE gr.CLASS_NAME IS NULL
+
+
+SELECT CONCAT( s.firstName , ' ', s.lastName) AS Full_name
+FROM students AS s
+WHERE s.studentId NOT IN (SELECT g.STUDENT_ID FROM grades AS g WHERE g.CLASS_NAME = 'SQL')
+
+SELECT s.studentId, g.GRADE
+FROM students AS s
+JOIN grades AS g ON g.STUDENT_ID = s.studentId
+WHERE g.GRADE = (SELECT MIN(g.GRADE) FROM grades AS g);
+
+
+
+
+SELECT g.STUDENT_ID, MIN(g.GRADE) AS min_grade
+FROM grades AS g
+GROUP BY g.STUDENT_ID
+HAVING min_grade = (SELECT MIN(g.GRADE) from grades AS g);
